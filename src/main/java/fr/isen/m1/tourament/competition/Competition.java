@@ -1,8 +1,8 @@
-package fr.isen.m1.tourament.competition;
+package main.java.fr.isen.m1.tourament.competition;
 
-import fr.isen.m1.tourament.enums.EStageType;
-import fr.isen.m1.tourament.models.Match;
-import fr.isen.m1.tourament.models.Team;
+import main.java.fr.isen.m1.tourament.enums.EStageType;
+import main.java.fr.isen.m1.tourament.models.Match;
+import main.java.fr.isen.m1.tourament.models.Team;
 
 import java.util.ArrayList;
 import java.util.List;

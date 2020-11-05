@@ -1,4 +1,4 @@
-package fr.isen.m1.tourament;
+package main.java.fr.isen.m1.tourament;
 
 public class Main {
 

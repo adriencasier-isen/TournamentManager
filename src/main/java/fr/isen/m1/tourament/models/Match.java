@@ -1,6 +1,6 @@
-package fr.isen.m1.tourament.models;
+package main.java.fr.isen.m1.tourament.models;
 
-import fr.isen.m1.tourament.enums.EStageType;
+import main.java.fr.isen.m1.tourament.enums.EStageType;
 
 public class Match {
     private final String _sport;
