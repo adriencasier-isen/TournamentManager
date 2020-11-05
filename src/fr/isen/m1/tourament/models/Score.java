@@ -1,4 +1,4 @@
-package main.java.fr.isen.m1.tourament.models;
+package fr.isen.m1.tourament.models;
 
 public class Score {
     public Team team;

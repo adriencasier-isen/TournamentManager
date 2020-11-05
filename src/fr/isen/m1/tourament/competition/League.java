@@ -1,6 +1,6 @@
-package main.java.fr.isen.m1.tourament.competition;
+package fr.isen.m1.tourament.competition;
 
-import main.java.fr.isen.m1.tourament.enums.EStageType;
+import fr.isen.m1.tourament.enums.EStageType;
 
 public class League extends Competition {
     public League(String name, int confrontationCount, EStageType stageType, String edition, String location) {

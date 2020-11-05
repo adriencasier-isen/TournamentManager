@@ -1,4 +1,4 @@
-package main.java.fr.isen.m1.tourament.models;
+package fr.isen.m1.tourament.models;
 
 import java.util.ArrayList;
 import java.util.List;

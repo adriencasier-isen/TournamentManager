@@ -1,6 +1,6 @@
-package main.java.fr.isen.m1.tourament.models;
+package fr.isen.m1.tourament.models;
 
-import main.java.fr.isen.m1.tourament.enums.EStageType;
+import fr.isen.m1.tourament.enums.EStageType;
 
 public class TournamentParticipant {
     private final Team _team;

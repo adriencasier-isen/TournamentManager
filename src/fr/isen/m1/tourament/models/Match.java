@@ -1,17 +1,21 @@
-package main.java.fr.isen.m1.tourament.models;
+package fr.isen.m1.tourament.models;
 
-import main.java.fr.isen.m1.tourament.enums.EStageType;
+import fr.isen.m1.tourament.enums.EStageType;
 
 public class Match {
     private final String _sport;
+    private final Long _id;
     private final EStageType _stage;
     private String _winner = null;
     private final Score[] _scores = new Score[2];
     private boolean _isPostponed = false;
     private boolean _isEnded = false;
+    private static Long count = 0L;
 
     public Match(String sport, EStageType stageType) {
+        Match.count++;
         _sport = sport;
+        this._id = Match.count;
         _stage = stageType;
     }
 
@@ -23,8 +27,16 @@ public class Match {
         return _isPostponed;
     }
 
+    public void set_isPostponed(boolean value) {
+        _isPostponed = value;
+    }
+
     public boolean get_isEnded() {
         return _isEnded;
+    }
+
+    public void end() {
+        _isEnded = true;
     }
 
     public EStageType get_stage() {
@@ -51,5 +63,17 @@ public class Match {
 
     public Score[] get_scores() {
         return _scores;
+    }
+
+    public Long get_id() {
+        return _id;
+    }
+
+    public Long getCount() {
+        return Match.count;
+    }
+
+    public void setCount(Long value) {
+        Match.count = value;
     }
 }
