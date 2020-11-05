@@ -1,10 +1,11 @@
 package fr.isen.m1.tourament.competition;
 
-import fr.isen.m1.tourament.models.Team;
 import fr.isen.m1.tourament.enums.EStageType;
 import fr.isen.m1.tourament.models.Match;
+import fr.isen.m1.tourament.models.Team;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Competition {
@@ -22,7 +23,7 @@ public class Competition {
     public List<Match> matchList = new ArrayList<>();
 
     public Competition(String name, int confrontationCount, EStageType stageType, String edition, String location) {
-        Competition.count ++;
+        Competition.count++;
         this.id = Competition.count;
         this.name = name;
         this.confrontationCount = confrontationCount;
@@ -61,5 +62,31 @@ public class Competition {
 
     public void setCount(Long value) {
         Competition.count = value;
+    }
+
+    public void addTeam(Team team) {
+        teamlist.add(team);
+    }
+
+    public void addTeams(Collection<? extends Team> teams) {
+        teamlist.addAll(teams);
+    }
+
+    public Team getTeam(Long id) {
+        return teamlist.stream()
+                .filter(team -> team.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void addMatchs(Collection<? extends Match> matchs) {
+        matchList.addAll(matchs);
+    }
+
+    public Match getMatch(Long id) {
+        return matchList.stream()
+                .filter(match -> match.get_id().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }

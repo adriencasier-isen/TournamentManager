@@ -2,31 +2,25 @@ package fr.isen.m1.tourament.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Team {
-    private final UUID id;
+    private static Long count = 0L;
     private String _name;
     private String _tag;
-    private String _country;
-    private String _sport;
+    private final Long id;
+    private final String _country;
+    private final String _sport;
 
     public static List<Team> teamList = new ArrayList<>();
 
     public Team(String name, String tag, String country, String sport) {
-        id = UUID.randomUUID();
+        Team.count++;
+        id = Team.count;
         this._name = name;
         this._tag = tag;
         this._country = country;
         this._sport = sport;
-    }
-
-    public Team(UUID id, String name, String tag, String country, String sport) {
-        this.id = id;
-        this._name = name;
-        this._tag = tag;
-        this._country = country;
-        this._sport = sport;
+        teamList.add(this);
     }
 
     public Team(Team team) {
@@ -37,7 +31,7 @@ public class Team {
         _sport = team._sport;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
