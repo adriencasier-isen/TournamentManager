@@ -1,6 +1,5 @@
 package fr.isen.m1.tourament.console;
 
-import fr.isen.m1.tourament.console.commands.HelloWorldCmd;
 import fr.isen.m1.tourament.console.commands.HelpCmd;
 
 import java.util.ArrayList;
@@ -11,23 +10,30 @@ import java.util.Optional;
 public class CommandHandler {
     private final List<ICommand> commands = new ArrayList<>();
 
-    public CommandHandler() {
-        ICommand[] commandClasses = {
-                new HelloWorldCmd(),
-        };
-
-        this.commands.addAll(Arrays.asList(commandClasses));
+    public CommandHandler(ICommand[] commandRegister) {
+        this.commands.addAll(Arrays.asList(commandRegister));
         this.commands.add(new HelpCmd(this.commands));
     }
 
     public void handleMessage(String msg) {
-        CommandContext cmdContext = new CommandContext(msg);
+        CommandContext cmdContext = new CommandContext(msg, Optional.empty());
         Optional<ICommand> matchedCmd = this.commands.stream()
                 .filter(cmd -> cmd.getCommandName().equals(cmdContext.parsedCommandName)).findFirst();
         if (matchedCmd.isPresent()) {
             matchedCmd.get().run(cmdContext);
         } else {
-            System.out.println("La commande n'a pas ete reconnue.");
+            System.out.println("Cette commande n'existe pas.");
+        }
+    }
+
+    public void handleMessageWithPrefix(String msg, String prefix) {
+        CommandContext cmdContext = new CommandContext(msg, Optional.ofNullable(prefix));
+        Optional<ICommand> matchedCmd = this.commands.stream()
+                .filter(cmd -> cmd.getCommandName().equals(cmdContext.parsedCommandName)).findFirst();
+        if (matchedCmd.isPresent()) {
+            matchedCmd.get().run(cmdContext);
+        } else {
+            System.out.println("Cette commande n'existe pas.");
         }
     }
 }

@@ -25,7 +25,8 @@ public class HelpCmd implements ICommand {
     @Override
     public void run(CommandContext cmdContext) {
         if (cmdContext.args.length == 0) {
-            System.out.printf("Essayez \"help <cmd>\" afin d'afficher la page d'aide d'une commande.\nListe des commandes:\n - %s\n",
+            System.out.printf("Essayez \"%shelp <cmd>\" afin d'afficher la page d'aide d'une commande.\nListe des commandes:\n - %s\n",
+                    cmdContext.prefix != null ? String.format("%s ", cmdContext.prefix) : "",
                     commands.stream().map(cmd -> cmd.getCommandName())
                             .collect(Collectors.joining("\n - ")));
         } else {
