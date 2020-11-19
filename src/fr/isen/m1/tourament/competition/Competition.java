@@ -17,6 +17,7 @@ public class Competition {
     private final String edition;
     private final String location;
     private final Long id;
+    private boolean archived = false;
     private static Long count = 0L;
 
     public List<Team> teamlist = new ArrayList<>();
@@ -88,5 +89,13 @@ public class Competition {
                 .filter(match -> match.get_id().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void archive() {
+        archived = true;
     }
 }

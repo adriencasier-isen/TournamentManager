@@ -3,7 +3,9 @@ package fr.isen.m1.tourament.console.commands;
 import fr.isen.m1.tourament.console.CommandContext;
 import fr.isen.m1.tourament.console.CommandHandler;
 import fr.isen.m1.tourament.console.ICommand;
+import fr.isen.m1.tourament.console.commands.league.ArchiveCmd;
 import fr.isen.m1.tourament.console.commands.league.CreateCmd;
+import fr.isen.m1.tourament.console.commands.league.DeleteCmd;
 import fr.isen.m1.tourament.console.commands.league.ListCmd;
 
 public class LeagueCmd implements ICommand {
@@ -12,7 +14,9 @@ public class LeagueCmd implements ICommand {
     public LeagueCmd() {
         ICommand[] commandRegister = {
                 new CreateCmd(),
-                new ListCmd()
+                new ListCmd(),
+                new ArchiveCmd(),
+                new DeleteCmd()
         };
         this.cmdHandler = new CommandHandler(commandRegister);
     }
