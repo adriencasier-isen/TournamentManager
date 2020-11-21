@@ -1,5 +1,6 @@
 package fr.isen.m1.tourament.console.commands.league;
 
+import fr.isen.m1.tourament.Main;
 import fr.isen.m1.tourament.competition.Competition;
 import fr.isen.m1.tourament.competition.League;
 import fr.isen.m1.tourament.console.CommandContext;
@@ -30,6 +31,13 @@ public class ArchiveCmd implements ICommand {
                     System.out.printf("La league %s édition %s est déjà archivé.\n", args[0], args[1]);
             } else {
                 System.out.println("Aucune league n'a été trouvé.");
+            }
+        } else if (Main.selectedCompetition.getClass().equals(League.class)) {
+            if (!Main.selectedCompetition.isArchived()) {
+                Main.selectedCompetition.archive();
+                System.out.printf("La league %s édition %s a été archivé.\n", Main.selectedCompetition.getName(), Main.selectedCompetition.getEdition());
+            } else {
+                System.out.printf("La league %s édition %s est déjà archivé.\n", Main.selectedCompetition.getName(), Main.selectedCompetition.getEdition());
             }
         } else {
             System.out.println("Cette commande attend exactement 2 argument.");

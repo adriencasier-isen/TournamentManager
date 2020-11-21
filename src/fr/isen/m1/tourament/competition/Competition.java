@@ -33,6 +33,19 @@ public class Competition {
         this.location = location;
     }
 
+    public Competition(Competition copy) {
+        Competition.count++;
+        this.id = Competition.count;
+        this.name = copy.name;
+        this.confrontationCount = copy.confrontationCount;
+        this.stageType = copy.stageType;
+        this.edition = copy.edition;
+        this.location = copy.location;
+        this.archived = copy.archived;
+        this.teamlist = copy.teamlist;
+        this.matchList = copy.matchList;
+    }
+
     public String getName() {
         return name;
     }

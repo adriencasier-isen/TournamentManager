@@ -7,4 +7,9 @@ public class League extends Competition {
         super(name, confrontationCount, EStageType.LEAGUE, edition, location);
         League.list.add(this);
     }
+
+    public League(League copy) {
+        super(copy);
+        League.list.add(this);
+    }
 }

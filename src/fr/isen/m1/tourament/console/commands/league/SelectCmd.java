@@ -8,11 +8,11 @@ import fr.isen.m1.tourament.console.ICommand;
 
 import java.util.Optional;
 
-public class DeleteCmd implements ICommand {
+public class SelectCmd implements ICommand {
     @Override
     public String getHelpMessage() {
-        return "Permet de supprimer une league. Attention, cette action est irreversible.\n" +
-                "S'utilise ainsi: \"league delete <nom:String> <edition:String>\"";
+        return "Sélectionne la ligue indiquée dans les paramètres.\n" +
+                "S'utilise ainsi: \"league select <nom:String> <edition:String>\"";
     }
 
     @Override
@@ -22,17 +22,10 @@ public class DeleteCmd implements ICommand {
             Optional<Competition> competition = League.list.stream()
                     .filter(l -> l.getName().equals(args[0]) && l.getEdition().equals(args[1])).findFirst();
             if (competition.isPresent()) {
-                if (competition.get().equals(Main.selectedCompetition)) {
-                    Main.selectedCompetition = null;
-                }
-                League.list.remove(competition.get());
-                System.out.printf("La league %s édition %s a été supprimé.\n", args[0], args[1]);
-            } else
+                Main.selectedCompetition = competition.get();
+            } else {
                 System.out.println("Cette league n'existe pas.");
-        } else if (Main.selectedCompetition.getClass() == League.class) {
-            League.list.remove(Main.selectedCompetition);
-            System.out.printf("La league %s édition %s a été supprimé.\n", Main.selectedCompetition.getName(), Main.selectedCompetition.getEdition());
-            Main.selectedCompetition = null;
+            }
         } else {
             System.out.println("Cette commande attend exactement 2 argument.");
         }
@@ -40,6 +33,6 @@ public class DeleteCmd implements ICommand {
 
     @Override
     public String getCommandName() {
-        return "delete";
+        return "select";
     }
 }
