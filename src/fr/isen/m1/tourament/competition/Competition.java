@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Competition {
+public class Competition implements java.io.Serializable {
     public static List<Competition> list = new ArrayList<>();
 
     private final String name;
