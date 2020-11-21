@@ -4,8 +4,10 @@ import fr.isen.m1.tourament.competition.Competition;
 import fr.isen.m1.tourament.competition.League;
 import fr.isen.m1.tourament.competition.Tournament;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 
 public class utils {
@@ -38,5 +40,16 @@ public class utils {
         System.out.print("Zone geographique:\n: ");
         location = userInput.nextLine();
         competitionClass.getDeclaredConstructor().newInstance(name, confrontation, edition, location);
+    }
+    public void saveLeague(){
+        League.list.stream().forEach(l -> {
+            try {
+                FileWriter fichierOut = new FileWriter("./data/leagues/"+ l.getName().toLowerCase()+"_"+ l.getEdition().toLowerCase()+".txt");
+                fichierOut.write(l.toString());
+                fichierOut.close();
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+          });
     }
 }
