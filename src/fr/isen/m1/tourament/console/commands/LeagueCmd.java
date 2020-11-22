@@ -15,7 +15,8 @@ public class LeagueCmd implements ICommand {
                 new ArchiveCmd(),
                 new DeleteCmd(),
                 new SelectCmd(),
-                new UnselectCmd()
+                new UnselectCmd(),
+                new RegisterTeamCmd()
         };
         this.cmdHandler = new CommandHandler(commandRegister);
     }

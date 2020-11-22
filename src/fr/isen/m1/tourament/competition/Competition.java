@@ -17,13 +17,14 @@ public class Competition implements java.io.Serializable {
     private final String edition;
     private final String location;
     private final Long id;
+    private final String sport;
     private boolean archived = false;
     private static Long count = 0L;
 
     public List<Team> teamlist = new ArrayList<>();
     public List<Match> matchList = new ArrayList<>();
 
-    public Competition(String name, int confrontationCount, EStageType stageType, String edition, String location) {
+    public Competition(String name, int confrontationCount, EStageType stageType, String edition, String location, String sport) {
         Competition.count++;
         this.id = Competition.count;
         this.name = name;
@@ -31,6 +32,7 @@ public class Competition implements java.io.Serializable {
         this.stageType = stageType;
         this.edition = edition;
         this.location = location;
+        this.sport = sport;
     }
 
     public Competition(Competition copy) {
@@ -44,6 +46,7 @@ public class Competition implements java.io.Serializable {
         this.archived = copy.archived;
         this.teamlist = copy.teamlist;
         this.matchList = copy.matchList;
+        this.sport = copy.sport;
     }
 
     public String getName() {
@@ -110,5 +113,9 @@ public class Competition implements java.io.Serializable {
 
     public void archive() {
         archived = true;
+    }
+
+    public String getSport() {
+        return sport;
     }
 }

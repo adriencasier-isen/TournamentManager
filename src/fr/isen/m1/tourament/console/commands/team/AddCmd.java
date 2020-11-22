@@ -16,7 +16,7 @@ public class AddCmd implements ICommand {
         if (cmdContext.args.length == 4) {
             String[] args = cmdContext.args;
             boolean alreadyExist = Team.teamList.stream()
-                    .anyMatch(t -> t.get_name().equals(args[0]) && t.get_tag().equals(args[1])
+                    .anyMatch(t -> t.get_name().equals(args[0]) && t.get_tag().equals(args[1].toUpperCase())
                             && t.get_sport().equals(args[3]));
             if (!alreadyExist) {
                 new Team(args[0], args[1], args[2], args[3]);

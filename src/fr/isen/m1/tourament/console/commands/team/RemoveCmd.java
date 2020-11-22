@@ -9,17 +9,17 @@ import java.util.Optional;
 public class RemoveCmd implements ICommand {
     @Override
     public String getHelpMessage() {
-        return "Supprimer une équipe de la base de données.";
+        return "Supprimer une équipe de la base de données.\n" +
+                "S'utilise ainsi: \"team remove <tag:String> <sport:String>\"";
     }
 
     @Override
     public void run(CommandContext cmdContext) {
-        if (cmdContext.args.length == 3) {
+        if (cmdContext.args.length == 2) {
             String[] args = cmdContext.args;
             Optional<Team> team = Team.teamList.stream()
-                    .filter(t -> t.get_name().equals(args[0])
-                            && t.get_tag().equals(args[1])
-                            && t.get_country().equals(args[2]))
+                    .filter(t -> t.get_tag().equals(args[0].toUpperCase())
+                            && t.get_sport().equals(args[1].toLowerCase()))
                     .findFirst();
             if (team.isPresent()) {
                 Team.teamList.remove(team.get());

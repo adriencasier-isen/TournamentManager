@@ -10,7 +10,8 @@ public class LeaderBoardCmd implements ICommand{
     }
     @Override
     public void run(CommandContext cmdContext){
-        //cmdContext.args
+        //TODO: Traiter les données des matches et générer le leaderboard
+        // Systeme de pagination ?
     }
     @Override
     public String getCommandName(){

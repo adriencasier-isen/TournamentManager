@@ -17,9 +17,9 @@ public class Team {
         Team.count++;
         id = Team.count;
         this._name = name;
-        this._tag = tag;
+        this._tag = tag.toUpperCase();
         this._country = country;
-        this._sport = sport;
+        this._sport = sport.toLowerCase();
         teamList.add(this);
     }
 
