@@ -1,6 +1,7 @@
 package fr.isen.m1.tourament.console.commands.league;
 
 import fr.isen.m1.tourament.Main;
+import fr.isen.m1.tourament.competition.League;
 import fr.isen.m1.tourament.console.CommandContext;
 import fr.isen.m1.tourament.console.ICommand;
 
@@ -15,18 +16,26 @@ public class ListRegisteredCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
-        if (cmdContext.args.length == 0) {
-            if (!Main.selectedCompetition.teamlist.isEmpty()) {
-                System.out.printf("Liste des équipes inscrites :\n" +
-                                "%s\n",
-                        Main.selectedCompetition.teamlist.stream()
-                                .map(t -> " - " + t.get_name() + " [" + t.get_tag() + "]")
-                                .collect(Collectors.joining("\n")));
+        if (Main.selectedCompetition != null) {
+            if (Main.selectedCompetition.getClass().equals(League.class)) {
+                if (cmdContext.args.length == 0) {
+                    if (!Main.selectedCompetition.teamlist.isEmpty()) {
+                        System.out.printf("Liste des équipes inscrites :\n" +
+                                        "%s\n",
+                                Main.selectedCompetition.teamlist.stream()
+                                        .map(t -> " - " + t.get_name() + " [" + t.get_tag() + "]")
+                                        .collect(Collectors.joining("\n")));
+                    } else {
+                        System.out.println("Aucun match n'a été enregistré dans la base de données.");
+                    }
+                } else {
+                    System.out.println("Cette commande attend exactement 0 argument.");
+                }
             } else {
-                System.out.println("Aucun match n'a été enregistré dans la base de données.");
+                System.out.println("La compétition selectionné ne correspond pas au type LEAGUE.");
             }
         } else {
-            System.out.println("Cette commande attend exactement 0 argument.");
+            System.out.println("Vous n'avez pas selectionné de compétition.");
         }
     }
 

@@ -21,8 +21,12 @@ public class EndCmd implements ICommand {
             Optional<Match> match = Main.selectedCompetition.matchList.stream()
                     .filter(m -> m.get_id().equals(Long.parseLong(args[0]))).findFirst();
             if (match.isPresent()) {
-                match.get().end();
-                System.out.printf("Le match #%s a été défini à terminé.\n", args[0]);
+                if (!match.get().get_isEnded()) {
+                    match.get().end();
+                    System.out.printf("Le match #%s est maintenant terminer.\n", args[0]);
+                } else {
+                    System.out.printf("Le match #%s est déjà terminé.\n", args[0]);
+                }
             } else {
                 System.out.printf("Aucun match n'a été trouvé avec l'ID %s.\n", args[0]);
             }

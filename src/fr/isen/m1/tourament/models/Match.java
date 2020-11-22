@@ -53,6 +53,7 @@ public class Match implements Serializable {
 
     public void end() {
         _isEnded = true;
+        computeWinner();
     }
 
     public EStageType get_stage() {
@@ -61,6 +62,14 @@ public class Match implements Serializable {
 
     public Team get_winner() {
         return _winner;
+    }
+
+    public void computeWinner() {
+        if (_scores[0].score < _scores[1].score) set_winner(1);
+        else if (_scores[0].score > _scores[1].score) set_winner(0);
+        else if (_scores[0].overtimeScore < _scores[1].overtimeScore) set_winner(1);
+        else if (_scores[0].overtimeScore > _scores[1].overtimeScore) set_winner(0);
+        else _winner = null;
     }
 
     public void set_winner(int index) {

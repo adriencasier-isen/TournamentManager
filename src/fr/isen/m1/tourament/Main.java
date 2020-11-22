@@ -27,7 +27,7 @@ public class Main {
             String userInput;
             String[] exitCmd = {"exit", "quit", "close"};
 
-            System.out.println("# Tournament Manager.\nAfin d'afficher la liste des commandes, entrez \"help\".");
+            System.out.println("# CompetitionManager.\nAfin d'afficher la liste des commandes, entrez \"help\".");
             Utils.displayBasePath();
 
             while (!isExited) {

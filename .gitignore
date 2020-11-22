@@ -47,3 +47,4 @@ pom.xml.tag
 
 data/
 data/*
+*.txt

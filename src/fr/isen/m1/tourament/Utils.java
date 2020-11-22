@@ -53,26 +53,30 @@ public abstract class Utils {
         try (Stream<Path> walk = Files.walk(Paths.get(basePath + leaguesPath))) {
             List<String> result = walk.map(x -> x.toString())
                     .filter(f -> f.endsWith(".txt")).collect(Collectors.toList());
-            for (String p : result) {
-                try {
-                    FileInputStream fichierIn = new FileInputStream(p);
-                    ObjectInputStream objIn = new ObjectInputStream(fichierIn);
-                    League tmp = (League) objIn.readObject();
-                    if (tmp.getClass().equals(League.class)) {
-                        if (League.list.stream().noneMatch(
-                                l -> l.getName().equals(tmp.getName()) && l.getEdition().equals(tmp.getEdition())
-                        )) {
-                            new League(tmp);
-                            successCount++;
+            if (!result.isEmpty()) {
+                for (String p : result) {
+                    try {
+                        FileInputStream fichierIn = new FileInputStream(p);
+                        ObjectInputStream objIn = new ObjectInputStream(fichierIn);
+                        League tmp = (League) objIn.readObject();
+                        if (tmp.getClass().equals(League.class)) {
+                            if (League.list.stream().noneMatch(
+                                    l -> l.getName().equals(tmp.getName()) && l.getEdition().equals(tmp.getEdition())
+                            )) {
+                                new League(tmp);
+                                successCount++;
+                            }
                         }
+                        objIn.close();
+                        fichierIn.close();
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
-                    objIn.close();
-                    fichierIn.close();
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
                 }
+                System.out.printf("%d leagues ont été chargés avec succès.\n", successCount);
+            } else {
+                System.out.println("Aucune league n'a été trouvé dans le dossier de stockage.");
             }
-            System.out.printf("%d leagues ont été chargés avec succès.\n", successCount);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,26 +107,30 @@ public abstract class Utils {
         try (Stream<Path> walk = Files.walk(Paths.get(basePath + teamsPath))) {
             List<String> result = walk.map(x -> x.toString())
                     .filter(f -> f.endsWith(".txt")).collect(Collectors.toList());
-            for (String p : result) {
-                try {
-                    FileInputStream fichierIn = new FileInputStream(p);
-                    ObjectInputStream objIn = new ObjectInputStream(fichierIn);
-                    Team tmp = (Team) objIn.readObject();
-                    if (tmp.getClass().equals(Team.class)) {
-                        if (Team.teamList.stream().noneMatch(
-                                t -> t.get_tag().equals(tmp.get_tag()) && t.get_sport().equals(tmp.get_sport())
-                        )) {
-                            new Team(tmp);
-                            successCount++;
+            if (!result.isEmpty()) {
+                for (String p : result) {
+                    try {
+                        FileInputStream fichierIn = new FileInputStream(p);
+                        ObjectInputStream objIn = new ObjectInputStream(fichierIn);
+                        Team tmp = (Team) objIn.readObject();
+                        if (tmp.getClass().equals(Team.class)) {
+                            if (Team.teamList.stream().noneMatch(
+                                    t -> t.get_tag().equals(tmp.get_tag()) && t.get_sport().equals(tmp.get_sport())
+                            )) {
+                                new Team(tmp);
+                                successCount++;
+                            }
                         }
+                        objIn.close();
+                        fichierIn.close();
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
-                    objIn.close();
-                    fichierIn.close();
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
                 }
+                System.out.printf("%d équipes ont été chargés avec succès.\n", successCount);
+            } else {
+                System.out.println("Aucune équipe n'a été trouvé dans le dossier de stockage.");
             }
-            System.out.printf("%d équipes ont été chargés avec succès.\n", successCount);
         } catch (IOException e) {
             e.printStackTrace();
         }
