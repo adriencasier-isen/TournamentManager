@@ -24,12 +24,15 @@ public class HelpCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien 0 arguments
         if (cmdContext.args.length == 0) {
+            // On affiche la page d'aide général avec la liste des commandes disponible à partir du préfix
             System.out.printf("Essayez \"%shelp <cmd>\" afin d'afficher la page d'aide d'une commande.\nListe des commandes:\n - %s\n",
                     cmdContext.prefix != null ? String.format("%s ", cmdContext.prefix) : "",
                     commands.stream().map(cmd -> cmd.getCommandName())
                             .collect(Collectors.joining("\n - ")));
         } else {
+            // Sinon on affiche la page d'aide de la commande trouvé à partir du préfix avec le 1er argument
             Optional<ICommand> matchedCmd = commands.stream()
                     .filter(cmd -> cmd.getCommandName().equals(cmdContext.args[0])).findFirst();
             if (matchedCmd.isPresent()) {

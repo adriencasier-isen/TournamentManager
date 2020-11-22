@@ -17,18 +17,23 @@ public class RegisterTeamCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie que l'utilisateur a bien sélectionné une competition de type league
         if (Main.selectedCompetition != null) {
             if (Main.selectedCompetition.getClass().equals(League.class)) {
+                // On vérifie qu'il y ai bien 1 seul commentaire
                 if (cmdContext.args.length == 1) {
                     String[] args = cmdContext.args;
+                    // On vérifie qu'il n'y ai pas d'équipe enregistré avec les arguments donné
                     boolean alreadyRegistered = Main.selectedCompetition.teamlist.stream()
                             .anyMatch(t -> t.get_tag().equals(args[0].toUpperCase()));
                     if (!alreadyRegistered) {
+                        // On recherche l'équipe parmis toute les équipes dans la mémoire
                         Optional<Team> team = Team.teamList.stream()
                                 .filter(t -> t.get_tag().equals(args[0].toUpperCase())
                                         && t.get_sport().equals(Main.selectedCompetition.getSport()))
                                 .findFirst();
                         if (team.isPresent()) {
+                            // Si l'équipe existe alors on l'inscrit
                             Main.selectedCompetition.teamlist.add(team.get());
                             System.out.printf("L'équipe %s [%s] a été ajouté à la liste des participants.\n", team.get().get_name(), team.get().get_tag());
                         } else {

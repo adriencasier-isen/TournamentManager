@@ -18,13 +18,17 @@ public class ArchiveCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie que la commande contient 2 arguments
         if (cmdContext.args.length == 2) {
             String[] args = cmdContext.args;
+            //On recherche la compétition avec les arguments comme critère de recherche
             Optional<Competition> competition = League.list.stream().filter(l -> l.getName().equals(args[0]) && l.getEdition().equals(args[1]))
                     .findFirst();
             if (competition.isPresent()) {
+                //Si la compétition a été trouvé
                 Competition league = competition.get();
                 if (!league.isArchived()) {
+                    //On archive la league si elle ne l'est pas
                     league.archive();
                     System.out.printf("La league %s édition %s est désormais archivé.\n", args[0], args[1]);
                 } else
@@ -32,7 +36,9 @@ public class ArchiveCmd implements ICommand {
             } else {
                 System.out.println("Aucune league n'a été trouvé.");
             }
-        } else if (Main.selectedCompetition.getClass().equals(League.class)) {
+        } else if (Main.selectedCompetition != null && Main.selectedCompetition.getClass().equals(League.class)) {
+            // Si aucun arguments ne sont donné MAIS que l'utilisateur a sélectionné une compétition au préalable
+            // Alors on archive la compétition sélectionné si elle ne l'est pas
             if (!Main.selectedCompetition.isArchived()) {
                 Main.selectedCompetition.archive();
                 System.out.printf("La league %s édition %s a été archivé.\n", Main.selectedCompetition.getName(), Main.selectedCompetition.getEdition());

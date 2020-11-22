@@ -16,12 +16,15 @@ public class SetOvertimeScoreCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien 3 arguments
         if (cmdContext.args.length == 3) {
             try {
                 String[] args = cmdContext.args;
+                // On recherche le match à modifier
                 Optional<Match> match = Main.selectedCompetition.matchList.stream()
                         .filter(m -> m.get_id().equals(Long.parseLong(args[0]))).findFirst();
                 if (match.isPresent()) {
+                    // Si le match est trouvé, on écrit les scores en temps de jeu de prolongation
                     match.get().setOvertimeScore(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
                     System.out.printf("Les scores de prolongation du match #%s ont été défini.\n", args[0]);
                 } else {

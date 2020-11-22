@@ -115,6 +115,9 @@ public class Competition implements java.io.Serializable {
                 .orElse(null);
     }
 
+    /**
+     * generateMatchList(): Génère la liste des matchs de la compétition
+     */
     public void generateMatchList() {
         // Doit être @Override chez les enfants
     }

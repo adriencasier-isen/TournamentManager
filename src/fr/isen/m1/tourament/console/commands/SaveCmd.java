@@ -13,6 +13,7 @@ public class SaveCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // Sauvegarde des données depuis les fichiers situé dans "./data/"
         Utils.saveLeagues();
         Utils.saveTeams();
     }

@@ -13,6 +13,7 @@ public class LoadCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // Chargement des données depuis les fichiers situé dans "./data/"
         Utils.loadLeagues();
         Utils.loadTeams();
     }

@@ -12,6 +12,7 @@ public class TeamCmd implements ICommand {
     final CommandHandler cmdHandler;
 
     public TeamCmd() {
+        // Registre des sous-commandes disponible depuis la commande "team"
         ICommand[] commandRegister = {
                 new AddCmd(),
                 new ListCmd(),
@@ -28,7 +29,9 @@ public class TeamCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a plus d'un argument
         if (cmdContext.args.length > 0) {
+            // On prépare le travail du CommandHandler en créant un contexte de sous-commande avec pour préfix "team "
             String subCmd = cmdContext.originalCommand.replace(String.format("%s ", cmdContext.parsedCommandName), "");
             this.cmdHandler.handleMessageWithPrefix(subCmd, cmdContext.parsedCommandName);
         } else {

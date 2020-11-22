@@ -15,11 +15,14 @@ public class CreateCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie que la commande contient 8 arguments
         if (cmdContext.args.length == 8) {
             String[] args = cmdContext.args;
+            // On vérifie qu'il n'existe pas de league avec le même nom et la même édition
             boolean existing = League.list.stream().anyMatch(l -> l.getName().equals(args[0]) && l.getEdition().equals(args[1]));
             if (!existing) {
                 try {
+                    // On créer une league avec les paramètres donné en argument
                     new League(args[0], Integer.parseInt(args[4]), args[1], args[3], args[2],
                             Integer.parseInt(args[5]), Integer.parseInt(args[6]), Integer.parseInt(args[7]));
                     System.out.printf("La league %s edition %s a ete cree avec succes.\n", args[0], args[1]);

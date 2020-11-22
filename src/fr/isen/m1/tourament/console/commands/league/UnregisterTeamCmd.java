@@ -17,14 +17,18 @@ public class UnregisterTeamCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie que l'utilisateur a bien sélectionné une competition de type league
         if (Main.selectedCompetition != null) {
             if (Main.selectedCompetition.getClass().equals(League.class)) {
+                // On vérifie qu'il y ai bien 1 seul commentaire
                 if (cmdContext.args.length == 1) {
                     String[] args = cmdContext.args;
+                    // On recherche l'équipe à retirer de la liste des équipes participantes
                     Optional<Team> team = Main.selectedCompetition.teamlist.stream()
                             .filter(t -> t.get_tag().equals(args[0].toUpperCase()))
                             .findFirst();
                     if (team.isPresent()) {
+                        // Si trouvé, on retire la liste des équipes participantes
                         Main.selectedCompetition.teamlist.remove(team.get());
                         System.out.printf("L'équipe %s [%s] a été retiré des participants.\n", team.get().get_name(), team.get().get_tag());
                     } else {

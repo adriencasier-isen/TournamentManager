@@ -15,13 +15,16 @@ public class RemoveCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien 2 arguments
         if (cmdContext.args.length == 2) {
             String[] args = cmdContext.args;
+            // On recherche l'équipe que l'on souhaite supprimer
             Optional<Team> team = Team.teamList.stream()
                     .filter(t -> t.get_tag().equals(args[0].toUpperCase())
                             && t.get_sport().equals(args[1].toLowerCase()))
                     .findFirst();
             if (team.isPresent()) {
+                // Si l'équipe existe, on la supprime
                 Team.teamList.remove(team.get());
                 System.out.printf("L'équipe %s [%s] a été supprimé.\n", team.get().get_name(), team.get().get_tag());
             } else {

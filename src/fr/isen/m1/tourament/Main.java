@@ -13,6 +13,7 @@ public class Main {
     public static Competition selectedCompetition = null;
 
     public static void main(String[] args) {
+        // Registre de commandes de premier niveau
         ICommand[] commandRegister = {
                 new LeagueCmd(),
                 new TeamCmd(),
@@ -31,6 +32,7 @@ public class Main {
             Utils.displayBasePath();
 
             while (!isExited) {
+                // Boucle de lecture des commandes
                 System.out.printf("%s> ", renderSelected());
                 userInput = scanner.nextLine();
                 if (Arrays.asList(exitCmd).contains(userInput)) isExited = true;

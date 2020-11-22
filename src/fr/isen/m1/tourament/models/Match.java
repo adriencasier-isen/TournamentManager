@@ -65,6 +65,7 @@ public class Match implements Serializable {
     }
 
     public void computeWinner() {
+        // Ici, on determine qui est le gagnant du match en effectuant de multiple comparaison
         if (_scores[0].score < _scores[1].score) set_winner(1);
         else if (_scores[0].score > _scores[1].score) set_winner(0);
         else if (_scores[0].overtimeScore < _scores[1].overtimeScore) set_winner(1);
@@ -91,6 +92,7 @@ public class Match implements Serializable {
     }
 
     public String get_match_score() {
+        // Ici on prépare l'affichage du score d'un match
         String score_team_A = String.format("%s %d(%d)", _scores[0].team.get_name(), _scores[0].score, _scores[0].overtimeScore);
         String score_team_B = String.format("(%d)%s %s", _scores[1].overtimeScore, _scores[1].score, _scores[1].team.get_name());
         return String.format("%s - %s", score_team_A, score_team_B);
@@ -109,6 +111,7 @@ public class Match implements Serializable {
     }
 
     public void invertTeam() {
+        // Ici on inverse les équipe "Domicile" et "Visiteur"
         Score tmp = new Score(this._scores[0]);
         this._scores[0] = new Score(this._scores[1]);
         this._scores[1] = new Score(tmp);

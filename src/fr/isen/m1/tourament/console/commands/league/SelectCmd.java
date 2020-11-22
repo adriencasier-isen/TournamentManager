@@ -17,11 +17,14 @@ public class SelectCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien 2 arguments
         if (cmdContext.args.length == 2) {
             String[] args = cmdContext.args;
+            // On recherche la compétition que l'on demande
             Optional<Competition> competition = League.list.stream()
                     .filter(l -> l.getName().equals(args[0]) && l.getEdition().equals(args[1])).findFirst();
             if (competition.isPresent()) {
+                // Selection de la compétition
                 Main.selectedCompetition = competition.get();
             } else {
                 System.out.println("Cette league n'existe pas.");

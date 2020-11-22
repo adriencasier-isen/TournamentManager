@@ -15,8 +15,11 @@ public class ListCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien aucun argument
         if (cmdContext.args.length == 0) {
+            // On vérifie qu'il y a des matchs à afficher
             if (!Main.selectedCompetition.matchList.isEmpty()) {
+                // On affiche les matches sous forme de tableau
                 String competitionText = Main.selectedCompetition.getName()
                         + " édition " + Main.selectedCompetition.getEdition();
                 System.out.printf("Liste des matchs de %s :\n" +

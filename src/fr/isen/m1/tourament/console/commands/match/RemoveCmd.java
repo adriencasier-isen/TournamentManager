@@ -16,11 +16,14 @@ public class RemoveCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien 1 argument
         if (cmdContext.args.length == 1) {
             String[] args = cmdContext.args;
+            // On recherche le match à supprimer par rapport à son ID
             Optional<Match> match = Main.selectedCompetition.matchList.stream()
                     .filter(m -> m.get_id().equals(Long.parseLong(args[0]))).findFirst();
             if (match.isPresent()) {
+                // Si trouvé, on supprime le match
                 Main.selectedCompetition.matchList.remove(match.get());
                 System.out.printf("Le match #%s a été supprimé.\n", args[0]);
             } else {

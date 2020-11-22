@@ -15,13 +15,16 @@ public class EditCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien 4 arguments
         if (cmdContext.args.length == 4) {
             String[] args = cmdContext.args;
+            // On cherche l'équipe à éditer
             Optional<Team> team = Team.teamList.stream()
                     .filter(t -> t.get_tag().equals(args[0].toUpperCase())
                             && t.get_sport().equals(args[1].toLowerCase()))
                     .findFirst();
             if (team.isPresent()) {
+                // Si trouvé, on edite une valeur en fonction du 3ème argument
                 switch (args[2].toLowerCase()) {
                     case "tag" -> team.get().set_tag(args[3].toUpperCase());
                     case "name" -> team.get().set_name(args[3]);

@@ -16,10 +16,14 @@ public class ListRegisteredCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie que l'utilisateur a bien sélectionné une competition de type league
         if (Main.selectedCompetition != null) {
             if (Main.selectedCompetition.getClass().equals(League.class)) {
+                // On vérifie qu'il n'y ai pas d'arguments
                 if (cmdContext.args.length == 0) {
+                    // Vérification d'existe d'équipe enregistré
                     if (!Main.selectedCompetition.teamlist.isEmpty()) {
+                        // Affichage des équipes enregistré
                         System.out.printf("Liste des équipes inscrites :\n" +
                                         "%s\n",
                                 Main.selectedCompetition.teamlist.stream()

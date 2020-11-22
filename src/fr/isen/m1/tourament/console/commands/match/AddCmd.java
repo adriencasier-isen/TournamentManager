@@ -18,8 +18,10 @@ public class AddCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien 2 arguments
         if (cmdContext.args.length == 2) {
             String[] args = cmdContext.args;
+            // On recherche les 2 équipes dans la liste des équipes participantes.
             Optional<Team> teamA = Main.selectedCompetition.teamlist.stream()
                     .filter(t -> t.get_tag().equals(args[0].toUpperCase()))
                     .findFirst();
@@ -27,10 +29,12 @@ public class AddCmd implements ICommand {
                     .filter(t -> t.get_tag().equals(args[1].toUpperCase()))
                     .findFirst();
             if (teamA.isPresent() && teamB.isPresent()) {
+                // Si les deux équipes sont trouvé alors on créer le match
                 Main.selectedCompetition.addNewMatch(teamA.get(), teamB.get());
                 System.out.printf("Le match qui opposera %s [%s] à %s [%s] a été crée.\n",
                         teamA.get().get_name(), teamA.get().get_tag(), teamB.get().get_name(), teamB.get().get_tag());
             } else {
+                // Sinon on détermine laquelle na pas été trouvé et on en informe l'utilisateur
                 List<String> unknowTeams = new ArrayList<>();
                 if (teamA.isEmpty()) unknowTeams.add(args[0].toUpperCase());
                 if (teamB.isEmpty()) unknowTeams.add(args[1].toUpperCase());

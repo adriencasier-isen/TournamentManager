@@ -13,8 +13,10 @@ public class GenerateMatchListCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie que l'utilisateur a bien sélectionné une competition de type league
         if (Main.selectedCompetition != null) {
             if (Main.selectedCompetition.getClass().equals(League.class)) {
+                // On vérifie les pré-requis pour générer la liste des matchs
                 if (Main.selectedCompetition.teamlist.size() > 1) {
                     Main.selectedCompetition.generateMatchList();
                     System.out.printf("Tout les matchs ont été généré avec %s confrontation(s) par rencontre.\n", Main.selectedCompetition.getConfrontationCount());

@@ -15,8 +15,11 @@ public class ListCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il n'y a pas d'argument
         if (cmdContext.args.length == 0) {
+            // On vérifique qu'il existe des équipes
             if (!Team.teamList.isEmpty()) {
+                // On affique les équipes
                 System.out.printf("Liste des equipes:\n" +
                         " - %s\n", Team.teamList.stream()
                         .map(t -> t.get_name() + " - " + t.get_tag() + " - " + t.get_sport())

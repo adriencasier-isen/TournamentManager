@@ -19,18 +19,23 @@ public class ListCmd implements ICommand {
     public void run(CommandContext cmdContext) {
         List<Competition> listCompetitions;
         String text;
+        // On vérifie si l'utilisateur a renseigné des arguments
         if (cmdContext.args.length == 0) {
+            // Affichage des leagues non archivé. Option par défaut
             listCompetitions = League.list.stream().filter(l -> !l.isArchived()).collect(Collectors.toList());
             text = "des leagues";
             displayList(listCompetitions, text);
         } else if (cmdContext.args.length == 1) {
+            // Affichage des leagues en fonction de l'argument
             switch (cmdContext.args[0]) {
                 case "archived" -> {
+                    // Affichage des leagues archivé
                     listCompetitions = League.list.stream().filter(l -> l.isArchived()).collect(Collectors.toList());
                     text = "des leagues archivé";
                     displayList(listCompetitions, text);
                 }
                 case "all" -> {
+                    // Affichage de toute les leagues
                     listCompetitions = League.list;
                     text = "de toute les leagues";
                     displayList(listCompetitions, text);

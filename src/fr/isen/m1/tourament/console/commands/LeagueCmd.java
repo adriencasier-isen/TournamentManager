@@ -9,6 +9,7 @@ public class LeagueCmd implements ICommand {
     final CommandHandler cmdHandler;
 
     public LeagueCmd() {
+        // Registre des sous-commandes disponible depuis la commande "league"
         ICommand[] commandRegister = {
                 new CreateCmd(),
                 new ListCmd(),
@@ -17,6 +18,7 @@ public class LeagueCmd implements ICommand {
                 new SelectCmd(),
                 new UnselectCmd(),
                 new RegisterTeamCmd(),
+                new UnregisterTeamCmd(),
                 new LeaderboardCmd(),
                 new GenerateMatchListCmd(),
                 new ListRegisteredCmd()
@@ -31,7 +33,9 @@ public class LeagueCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a plus d'un argument
         if (cmdContext.args.length > 0) {
+            // On prépare le travail du CommandHandler en créant un contexte de sous-commande avec pour préfix "league "
             String subCmd = cmdContext.originalCommand.replace(String.format("%s ", cmdContext.parsedCommandName), "");
             this.cmdHandler.handleMessageWithPrefix(subCmd, cmdContext.parsedCommandName);
         } else {

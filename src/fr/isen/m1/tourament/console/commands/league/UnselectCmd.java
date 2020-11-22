@@ -12,7 +12,9 @@ public class UnselectCmd implements ICommand {
 
     @Override
     public void run(CommandContext cmdContext) {
+        // On vérifie qu'il y a bien aucun argument
         if (cmdContext.args.length == 0) {
+            // On déselectionne la compétition
             if (Main.selectedCompetition != null) {
                 Main.selectedCompetition = null;
             } else {

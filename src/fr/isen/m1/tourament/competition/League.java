@@ -31,9 +31,12 @@ public class League extends Competition {
         League.list.add(this);
     }
 
+    /**
+     * computeLeaderboard(): Calcul les points des équipes afin d'effectuer un classement de league
+     */
     public void computeLeaderboard() {
         leaderboard.clear();
-        for (Team t : Team.teamList) {
+        for (Team t : this.teamlist) {
             int score = 0;
             int matchPlayed = 0;
             for (Match m : matchList) {
@@ -51,6 +54,9 @@ public class League extends Competition {
         leaderboard.sort((o1, o2) -> Integer.compare(o2.score, o1.score));
     }
 
+    /**
+     * generateMatchList(): Génère la liste des matchs de la compétition
+     */
     @Override
     public void generateMatchList() {
         List<Match> tmpMatchlist = new ArrayList<>();
@@ -79,6 +85,10 @@ public class League extends Competition {
         addMatchs(generatedMatchlist);
     }
 
+
+    /**
+     * Sous-classe pour organiser un classement. Cette classe est une entrée d'une liste.
+     */
     public static class LeaderboardEntry implements Serializable {
         public Team team;
         public int score;

@@ -23,6 +23,7 @@ public abstract class Utils {
     }
 
     public static boolean initSaveFileLocation() {
+        // Ici on essaie de créer les dossiers necessaire à la lecture et écriture des fichiers de sauvegarde
         File leaguesDir = new File(basePath.concat(leaguesPath));
         File teamsDir = new File(basePath.concat(teamsPath));
         if (!leaguesDir.exists()) leaguesDir.mkdirs();
@@ -33,6 +34,9 @@ public abstract class Utils {
     public static void saveLeagues() {
         int successCount = 0;
         for (Competition l : League.list) {
+            // Pour chaque leagues, on essaie de créer ou ouvrir le fichier dans "./data/leagues/"
+            // avec pour nom de fichier son nom et son edition.
+            // Après ouverture du fichier, on écrit l'objet de type League dans le fichier
             try {
                 String fileName = l.getName().toLowerCase() + "_" + l.getEdition().toLowerCase() + ".txt";
                 FileOutputStream fichierOut = new FileOutputStream(Paths.get(basePath + leaguesPath + fileName).toString());
@@ -50,16 +54,20 @@ public abstract class Utils {
 
     public static void loadLeagues() {
         int successCount = 0;
+        // On essaie de répertorier tout les fichiers se trouvant dans "./data/leagues/" et finissant par ".txt"
         try (Stream<Path> walk = Files.walk(Paths.get(basePath + leaguesPath))) {
             List<String> result = walk.map(x -> x.toString())
                     .filter(f -> f.endsWith(".txt")).collect(Collectors.toList());
             if (!result.isEmpty()) {
+                // Si l'on a trouvé un ou plusieur fichiers, alors on essaie de lire le contenu en tant que type League
+                // afin de le stocker dans la memoire
                 for (String p : result) {
                     try {
                         FileInputStream fichierIn = new FileInputStream(p);
                         ObjectInputStream objIn = new ObjectInputStream(fichierIn);
                         League tmp = (League) objIn.readObject();
                         if (tmp.getClass().equals(League.class)) {
+                            // On vérifie que ce que l'on lis du fichier n'existe pas déjà dans la mémoire
                             if (League.list.stream().noneMatch(
                                     l -> l.getName().equals(tmp.getName()) && l.getEdition().equals(tmp.getEdition())
                             )) {
@@ -85,6 +93,9 @@ public abstract class Utils {
     public static void saveTeams() {
         int successCount = 0;
         for (Team t : Team.teamList) {
+            // Pour chaque équipes, on essaie de créer ou ouvrir le fichier dans "./data/teams/"
+            // avec pour nom de fichier son nom, son tag et son sport.
+            // Après ouverture du fichier, on écrit l'objet de type Team dans le fichier
             try {
                 String fileName = t.get_name().toLowerCase() + "_"
                         + t.get_tag().toLowerCase() + "_"
@@ -104,16 +115,21 @@ public abstract class Utils {
 
     public static void loadTeams() {
         int successCount = 0;
+        // On essaie de répertorier tout les fichiers se trouvant dans "./data/teams/" et finissant par ".txt"
         try (Stream<Path> walk = Files.walk(Paths.get(basePath + teamsPath))) {
             List<String> result = walk.map(x -> x.toString())
                     .filter(f -> f.endsWith(".txt")).collect(Collectors.toList());
             if (!result.isEmpty()) {
+                // Si l'on a trouvé un ou plusieur fichiers, alors on essaie de lire le contenu en tant que type Team
+                // afin de le stocker dans la memoire
                 for (String p : result) {
+
                     try {
                         FileInputStream fichierIn = new FileInputStream(p);
                         ObjectInputStream objIn = new ObjectInputStream(fichierIn);
                         Team tmp = (Team) objIn.readObject();
                         if (tmp.getClass().equals(Team.class)) {
+                            // On vérifie que ce que l'on lis du fichier n'existe pas déjà dans la mémoire
                             if (Team.teamList.stream().noneMatch(
                                     t -> t.get_tag().equals(tmp.get_tag()) && t.get_sport().equals(tmp.get_sport())
                             )) {
@@ -135,41 +151,4 @@ public abstract class Utils {
             e.printStackTrace();
         }
     }
-    /*
-    public void saveTournament(){
-        Tournament.list.stream().forEach(l -> {
-            try {
-                FileOutputStream fichierOut = new FileOutputStream("./data/tournaments/"+ l.getName().toLowerCase()+"_"+ l.getEdition().toLowerCase()+".txt");
-                ObjectOutputStream objOut= new ObjectOutputStream(fichierOut);
-                objOut.writeObject(l);
-                objOut.close();
-                fichierOut.close();
-                System.out.println("Object has been serialized");
-            } catch (Exception e) {
-                System.out.println("IOException is caught");
-            }
-          });
-    }
-    public void readTournament(){
-        try(Stream<Path> walk = Files.walk(Paths.get("./data/tournaments/"))){
-            List<String> result = walk.map(x -> x.toString())
-            .filter(f -> f.endsWith(".txt")).collect(Collectors.toList());
-            result.forEach(p->{
-                try{
-                FileInputStream fichierIn = new FileInputStream(p);
-                ObjectInputStream objIn = new ObjectInputStream(fichierIn);
-                new League((League) objIn.readObject());
-                objIn.close();
-                fichierIn.close();
-                }
-                catch(Exception e) {
-                    System.out.println("IOException is caught");
-                }
-            });
-        } 
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 }
