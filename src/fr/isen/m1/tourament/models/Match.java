@@ -2,7 +2,9 @@ package fr.isen.m1.tourament.models;
 
 import fr.isen.m1.tourament.enums.EStageType;
 
-public class Match {
+import java.io.Serializable;
+
+public class Match implements Serializable {
     private final String _sport;
     private final Long _id;
     private final EStageType _stage;
@@ -17,8 +19,20 @@ public class Match {
         _sport = sport;
         this._id = Match.count;
         _stage = stageType;
-        _scores[0].team = teamHome;
-        _scores[1].team = teamExt;
+        _scores[0] = new Score(teamHome);
+        _scores[1] = new Score(teamExt);
+    }
+
+    public Match(Match copy) {
+        Match.count++;
+        _sport = copy._sport;
+        this._id = Match.count;
+        _stage = copy._stage;
+        _scores[0] = new Score(copy._scores[0].team);
+        _scores[1] = new Score(copy._scores[1].team);
+        _isEnded = copy._isEnded;
+        _isPostponed = copy._isPostponed;
+        _winner = copy._winner;
     }
 
     public String get_sport() {
@@ -67,6 +81,12 @@ public class Match {
         return _scores;
     }
 
+    public String get_match_score() {
+        String score_team_A = String.format("%s %d(%d)", _scores[0].team.get_name(), _scores[0].score, _scores[0].overtimeScore);
+        String score_team_B = String.format("(%d)%s %s", _scores[1].overtimeScore, _scores[1].score, _scores[1].team.get_name());
+        return String.format("%s - %s", score_team_A, score_team_B);
+    }
+
     public Long get_id() {
         return _id;
     }
@@ -77,5 +97,11 @@ public class Match {
 
     public void setCount(Long value) {
         Match.count = value;
+    }
+
+    public void invertTeam() {
+        Score tmp = new Score(this._scores[0]);
+        this._scores[0] = new Score(this._scores[1]);
+        this._scores[1] = new Score(tmp);
     }
 }

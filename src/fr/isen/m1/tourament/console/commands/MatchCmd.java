@@ -4,13 +4,19 @@ import fr.isen.m1.tourament.Main;
 import fr.isen.m1.tourament.console.CommandContext;
 import fr.isen.m1.tourament.console.CommandHandler;
 import fr.isen.m1.tourament.console.ICommand;
+import fr.isen.m1.tourament.console.commands.match.*;
 
 public class MatchCmd implements ICommand {
     final CommandHandler cmdHandler;
 
     public MatchCmd() {
         ICommand[] commandRegister = {
-                new HelloWorldCmd()
+                new RemoveCmd(),
+                new AddCmd(),
+                new EndCmd(),
+                new ListCmd(),
+                new SetOvertimeScoreCmd(),
+                new SetScoreCmd()
         };
         this.cmdHandler = new CommandHandler(commandRegister);
     }

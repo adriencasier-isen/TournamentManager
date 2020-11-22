@@ -100,11 +100,23 @@ public class Competition implements java.io.Serializable {
         matchList.addAll(matchs);
     }
 
+    public void addMatch(Match match) {
+        matchList.add(match);
+    }
+
+    public void addNewMatch(Team teamA, Team teamB) {
+        matchList.add(new Match(getSport(), stageType, teamA, teamB));
+    }
+
     public Match getMatch(Long id) {
         return matchList.stream()
                 .filter(match -> match.get_id().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void generateMatchList() {
+        // Doit être @Override chez les enfants
     }
 
     public boolean isArchived() {

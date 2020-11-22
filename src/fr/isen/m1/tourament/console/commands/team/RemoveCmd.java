@@ -23,12 +23,12 @@ public class RemoveCmd implements ICommand {
                     .findFirst();
             if (team.isPresent()) {
                 Team.teamList.remove(team.get());
-                System.out.printf("L'équipe %s [%s] a été supprimé.\n", args[0], args[1]);
+                System.out.printf("L'équipe %s [%s] a été supprimé.\n", team.get().get_name(), team.get().get_tag());
             } else {
                 System.out.println("Aucune équipe n'a été trouvé.");
             }
         } else {
-            System.out.println("Cette commande attend exactement 3 arguments");
+            System.out.println("Cette commande attend exactement 2 arguments");
         }
     }
 

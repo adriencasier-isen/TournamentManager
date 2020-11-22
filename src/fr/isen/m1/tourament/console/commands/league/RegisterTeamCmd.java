@@ -34,7 +34,7 @@ public class RegisterTeamCmd implements ICommand {
                         System.out.println("Aucune équipe n'a été trouvé.");
                     }
                 } else {
-                    System.out.printf("L'équipe [%s] est déjà inscrite à la league\n.", args[0].toUpperCase());
+                    System.out.printf("L'équipe [%s] est déjà inscrite à la league.\n", args[0].toUpperCase());
                 }
             } else {
                 System.out.println("Cette commande attend exactement 1 arguments");

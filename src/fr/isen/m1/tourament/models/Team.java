@@ -1,9 +1,10 @@
 package fr.isen.m1.tourament.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team {
+public class Team implements Serializable {
     private static Long count = 0L;
     private String _name;
     private String _tag;
@@ -23,12 +24,14 @@ public class Team {
         teamList.add(this);
     }
 
-    public Team(Team team) {
-        id = team.id;
-        _name = team._name;
-        _tag = team._tag;
-        _country = team._country;
-        _sport = team._sport;
+    public Team(Team copy) {
+        Team.count++;
+        id = Team.count;
+        _name = copy._name;
+        _tag = copy._tag;
+        _country = copy._country;
+        _sport = copy._sport;
+        teamList.add(this);
     }
 
     public Long getId() {

@@ -2,7 +2,9 @@ package fr.isen.m1.tourament.models;
 
 import fr.isen.m1.tourament.enums.EStageType;
 
-public class TournamentParticipant {
+import java.io.Serializable;
+
+public class TournamentParticipant implements Serializable {
     private final Team _team;
     private boolean _eliminated = false;
     private final EStageType _stage;
